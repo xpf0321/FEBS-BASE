@@ -13,6 +13,11 @@ public class TestController {
         return "febs-server-system";
     }
 
+    @GetMapping("hello")
+    public String hello(String name) {
+        return "hello" + name;
+    }
+
     @GetMapping("user")
     public Principal currentUser(Principal principal) {
         return principal;

@@ -20,3 +20,9 @@ security:
     resource:
       id: ${spring.application.name}
       user-info-uri: http://localhost:8301/auth/user
+feign:
+  hystrix:
+    enabled: true
+#这样做会把SecurityContext对象从你当前主线程传输到Hystrix线程
+hystrix:
+  shareSecurityContext: true

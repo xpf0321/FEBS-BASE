@@ -38,3 +38,6 @@ zuul:
   host:
     connect-timeout-millis: 5000
     socket-timeout-millis: 5000
+  SendErrorFilter:
+    error:
+      disable: true
