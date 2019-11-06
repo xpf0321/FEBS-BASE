@@ -4,7 +4,9 @@ server:
 spring:
   application:
     name: FEBS-Gateway
-
+  #febs-common模块里引入了mybatis-plus-boot-starter，该starter包含数据库自动装配配置，而febs-gateway、febs-server-system和febs-server-test模块并没有配置数据库，所以我们需要在它们的配置文件application.yml里添加如下配置来关闭数据库自动装配:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 eureka:
   instance:
     lease-renewal-interval-in-seconds: 20
