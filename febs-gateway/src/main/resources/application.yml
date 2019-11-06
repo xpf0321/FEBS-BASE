@@ -18,6 +18,7 @@ eureka:
     serviceUrl:
       defaultZone: http://febs:123123@localhost:8001/register/eureka/
 
+
 zuul:
   routes:
     auth:
