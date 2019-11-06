@@ -34,6 +34,19 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <!--集成Lettuce,引入commons-pool2 Lettuce连接池-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+        <!--生成图形验证码可以借助GitHub的一个开源项目https://github.com/whvcse/EasyCaptcha，其提供了较为丰富的验证码配置可供选择-->
+        <!-- https://mvnrepository.com/artifact/com.github.whvcse/easy-captcha -->
+        <dependency>
+            <groupId>com.github.whvcse</groupId>
+            <artifactId>easy-captcha</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>
