@@ -15,6 +15,25 @@ spring:
         max-active: 2000
         max-wait: 10000
     timeout: 5000
+    #这里数据库连接池使用的是Hikari，Spring Boot2.0后官方推荐使用该连接池，特点是响应速度快。
+  datasource:
+    dynamic:
+      hikari:
+        connection-timeout: 30000
+        max-lifetime: 1800000
+        max-pool-size: 15
+        min-idle: 5
+        connection-test-query: select 1
+        pool-name: FebsHikariCP
+    #如果要继续添加数据源的话只需要在spring.datasource.dynamic.datasource下继续添加即可。
+      primary: base
+      datasource:
+        base:
+          username: root
+          password: 123123
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/febs_cloud_base?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8
+
 eureka:
   instance:
     lease-renewal-interval-in-seconds: 20
@@ -25,3 +44,12 @@ eureka:
     registry-fetch-interval-seconds: 3
     serviceUrl:
       defaultZone: http://febs:123123@localhost:8001/register/eureka/
+mybatis-plus:
+  type-aliases-package: com.mxys.febs.common.entity.system
+  mapper-locations: classpath:mapper/*.xml
+  #指定为null，否则再插入空值时会报“无效的列类型”错误
+  configuration:
+    jdbc-type-for-null: null
+  #设置为false关闭MyBatis Plus Banner打印
+  global-config:
+    banner: false
