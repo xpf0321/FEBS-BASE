@@ -4,8 +4,12 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.mxys.febs.common.annotation.IsMobile;
 import lombok.Data;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,9 +22,9 @@ public class SystemUser implements Serializable {
     //用户状态：锁定
     public static final String STATUS_LOCK = "0";
     //默认头像
-    public static final String DEFUALT_AVATAR="defualt.jpg";
+    public static final String DEFAULT_AVATAR="defualt.jpg";
     //默认密码
-    public static final String DEFUALT_PASSWORD="123123";
+    public static final String DEFAULT_PASSWORD="123123";
     //性别男
     public static final String SEX_MALE="0";
     //性别女
@@ -38,6 +42,7 @@ public class SystemUser implements Serializable {
      * 用户名
      */
     @TableField("USERNAME")
+    @Size(min = 3,max = 10,message = "{range}")
     private String username;
 
     /**
@@ -56,18 +61,22 @@ public class SystemUser implements Serializable {
      * 邮箱
      */
     @TableField("EMAIL")
+    @Size(max = 50, message = "{noMoreThan}")
+    @Email(message = "{email}")
     private String email;
 
     /**
      * 联系电话
      */
     @TableField("MOBILE")
+    @IsMobile(message = "{mobile}")
     private String mobile;
 
     /**
      * 状态 0锁定 1有效
      */
     @TableField("STATUS")
+    @NotBlank(message = "{required}")
     private String status;
 
     /**
@@ -92,6 +101,7 @@ public class SystemUser implements Serializable {
      * 性别 0男 1女 2 保密
      */
     @TableField("SSEX")
+    @NotBlank(message = "{required}")
     private String sex;
 
     /**
