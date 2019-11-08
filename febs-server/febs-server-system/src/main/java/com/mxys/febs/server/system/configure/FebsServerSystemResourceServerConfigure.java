@@ -2,6 +2,8 @@ package com.mxys.febs.server.system.configure;
 
 import com.mxys.febs.common.handler.FebsAccessDeniedHandler;
 import com.mxys.febs.common.handler.FebsAuthExceptionEntryPoint;
+import com.mxys.febs.server.system.properties.FebsServerSystemProperties;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,12 +18,18 @@ public class FebsServerSystemResourceServerConfigure extends ResourceServerConfi
     private FebsAccessDeniedHandler accessDeniedHandler;
     @Autowired
     private FebsAuthExceptionEntryPoint exceptionEntryPoint;
+
+    @Autowired
+    private FebsServerSystemProperties properties;
+
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
+        String [] url= StringUtils.splitByWholeSeparatorPreserveAllTokens(properties.getAnonUrl(),",");
         http.csrf().disable()
                 .requestMatchers().antMatchers("/**")
                 .and()
-                .authorizeRequests()
+                .authorizeRequests().antMatchers(url).permitAll()
                 .antMatchers("/**").authenticated();
     }
 
